@@ -1,65 +1,65 @@
-// import { useGSAP } from '@gsap/react';
-// import gsap from 'gsap';
-// import { useRef } from 'react';
-// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-// import { Activity, AlertTriangle, ShieldCheck } from 'lucide-react';
+// // import { useGSAP } from '@gsap/react';
+// // import gsap from 'gsap';
+// // import { useRef } from 'react';
+// // import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+// // import { Activity, AlertTriangle, ShieldCheck } from 'lucide-react';
 
-// const Dashboard = () => {
-//   const container = useRef();
+// // const Dashboard = () => {
+// //   const container = useRef();
   
-//   // Sample data - in production, fetch this from /api/stats [cite: 91]
-//   const data = [
-//     { name: '10:00', logs: 400, anomalies: 2 },
-//     { name: '11:00', logs: 700, anomalies: 5 },
-//     { name: '12:00', logs: 200, anomalies: 0 },
-//   ];
+// //   // Sample data - in production, fetch this from /api/stats [cite: 91]
+// //   const data = [
+// //     { name: '10:00', logs: 400, anomalies: 2 },
+// //     { name: '11:00', logs: 700, anomalies: 5 },
+// //     { name: '12:00', logs: 200, anomalies: 0 },
+// //   ];
 
-//   useGSAP(() => {
-//     gsap.from(".stat-card", { opacity: 0, y: 30, stagger: 0.2, duration: 0.8 });
-//   }, { scope: container });
+// //   useGSAP(() => {
+// //     gsap.from(".stat-card", { opacity: 0, y: 30, stagger: 0.2, duration: 0.8 });
+// //   }, { scope: container });
 
-//   return (
-//     <div ref={container} className="p-4">
-//       <h2 className="mb-4">System Overview</h2>
-//       <div className="row g-4 mb-5">
-//         <div className="col-md-4">
-//           <div className="stat-card bg-secondary p-3 rounded d-flex align-items-center">
-//             <Activity className="me-3 text-info" size={40} />
-//             <div><p className="mb-0">Total Logs</p><h4>1,284</h4></div>
-//           </div>
-//         </div>
-//         <div className="col-md-4">
-//           <div className="stat-card bg-secondary p-3 rounded d-flex align-items-center">
-//             <AlertTriangle className="me-3 text-warning" size={40} />
-//             <div><p className="mb-0">Anomalies</p><h4>12</h4></div>
-//           </div>
-//         </div>
-//         <div className="col-md-4">
-//           <div className="stat-card bg-secondary p-3 rounded d-flex align-items-center">
-//             <ShieldCheck className="me-3 text-success" size={40} />
-//             <div><p className="mb-0">System Status</p><h4>Secure</h4></div>
-//           </div>
-//         </div>
-//       </div>
+// //   return (
+// //     <div ref={container} className="p-4">
+// //       <h2 className="mb-4">System Overview</h2>
+// //       <div className="row g-4 mb-5">
+// //         <div className="col-md-4">
+// //           <div className="stat-card bg-secondary p-3 rounded d-flex align-items-center">
+// //             <Activity className="me-3 text-info" size={40} />
+// //             <div><p className="mb-0">Total Logs</p><h4>1,284</h4></div>
+// //           </div>
+// //         </div>
+// //         <div className="col-md-4">
+// //           <div className="stat-card bg-secondary p-3 rounded d-flex align-items-center">
+// //             <AlertTriangle className="me-3 text-warning" size={40} />
+// //             <div><p className="mb-0">Anomalies</p><h4>12</h4></div>
+// //           </div>
+// //         </div>
+// //         <div className="col-md-4">
+// //           <div className="stat-card bg-secondary p-3 rounded d-flex align-items-center">
+// //             <ShieldCheck className="me-3 text-success" size={40} />
+// //             <div><p className="mb-0">System Status</p><h4>Secure</h4></div>
+// //           </div>
+// //         </div>
+// //       </div>
       
-//       <div className="bg-secondary p-4 rounded" style={{ height: '400px' }}>
-//         <h5>Log Traffic vs Anomalies</h5>
-//         <ResponsiveContainer width="100%" height="100%">
-//           <LineChart data={data}>
-//             <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-//             <XAxis dataKey="name" stroke="#ccc" />
-//             <YAxis stroke="#ccc" />
-//             <Tooltip contentStyle={{ backgroundColor: '#333', border: 'none' }} />
-//             <Line type="monotone" dataKey="logs" stroke="#0dcaf0" />
-//             <Line type="monotone" dataKey="anomalies" stroke="#ffc107" />
-//           </LineChart>
-//         </ResponsiveContainer>
-//       </div>
-//     </div>
-//   );
-// };
+// //       <div className="bg-secondary p-4 rounded" style={{ height: '400px' }}>
+// //         <h5>Log Traffic vs Anomalies</h5>
+// //         <ResponsiveContainer width="100%" height="100%">
+// //           <LineChart data={data}>
+// //             <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+// //             <XAxis dataKey="name" stroke="#ccc" />
+// //             <YAxis stroke="#ccc" />
+// //             <Tooltip contentStyle={{ backgroundColor: '#333', border: 'none' }} />
+// //             <Line type="monotone" dataKey="logs" stroke="#0dcaf0" />
+// //             <Line type="monotone" dataKey="anomalies" stroke="#ffc107" />
+// //           </LineChart>
+// //         </ResponsiveContainer>
+// //       </div>
+// //     </div>
+// //   );
+// // };
 
-// export default Dashboard;
+// // export default Dashboard;
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
@@ -149,3 +149,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

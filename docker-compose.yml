@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # Elasticsearch Service
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - alert-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 | grep -q cluster_name"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend Service
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: alert-backend
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - CLIENT_URL=http://localhost:5173
+      - ELASTICSEARCH_HOST=http://elasticsearch:9200
+      - ELASTICSEARCH_INDEX=linux-logs
+      - ML_SERVICE_URL=http://ml-service:8000
+    ports:
+      - "5000:5000"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - alert-network
+    restart: unless-stopped
+
+  # ML Service
+  ml-service:
+    build:
+      context: ./ml-service
+      dockerfile: Dockerfile
+    container_name: alert-ml-service
+    environment:
+      - API_PORT=8000
+      - API_HOST=0.0.0.0
+      - ML_MODEL=isolation-forest
+      - ANOMALY_THRESHOLD=0.7
+    ports:
+      - "8000:8000"
+    networks:
+      - alert-network
+    restart: unless-stopped
+
+  # Frontend Service (optional - for production serving)
+  # frontend:
+  #   build:
+  #     context: ./client
+  #     dockerfile: Dockerfile
+  #   container_name: alert-frontend
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - alert-network
+  #   restart: unless-stopped
+
+volumes:
+  elasticsearch_data:
+
+networks:
+  alert-network:
+    driver: bridge

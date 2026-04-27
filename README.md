@@ -304,12 +304,6 @@ For issues, questions, or suggestions:
 
 ---
 
-## 👨‍💻 Author
-
-**Janhavi**
-
-- GitHub: [@Janhavi078](https://github.com/Janhavi078)
-- Project: [Alert Detection System](https://github.com/Janhavi078/-alert-detection-system-for-linux-logs)
 
 ---
 

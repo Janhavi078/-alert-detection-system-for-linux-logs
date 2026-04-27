@@ -1,119 +1,83 @@
 # 🚨 Alert Detection System for Linux Logs
 
-A **Machine Learning–based alert detection system** designed to monitor and analyze Linux system logs in real-time, identifying suspicious activities, unauthorized login attempts, abnormal behavior, and potential security threats.
-
 ## 🧠 Overview
 
-The system integrates **React (frontend)**, **Node.js (backend)**, and a **Python-based ML service** to provide intelligent insights and alerts with automated anomaly detection.
+This project is a **Machine Learning–based alert detection system** designed to monitor and analyze Linux system logs in real-time. It identifies suspicious activities such as unauthorized login attempts, abnormal behavior, and potential security threats.
+
+The system integrates **React (frontend)**, **Node.js (backend)**, and a **Python-based ML service** to provide intelligent insights and alerts.
 
 ---
 
 ## ⚙️ Tech Stack
 
 ### 🎨 Frontend
-- **React.js** - UI framework
-- **Bootstrap** - CSS framework
-- **GSAP + ScrollTrigger** - Animations
-- **Recharts** - Data visualization
-- **Socket.io** - Real-time communication
-- **Axios** - HTTP client
-- **React Router** - Navigation
+- React.js
+- Bootstrap
+- GSAP + ScrollTrigger
+- Recharts (data visualization)
 
 ### 🧠 Backend
-- **Node.js** - Runtime environment
-- **Express.js** - Web framework
-- **Socket.io** - Real-time events
-- **Elasticsearch** - Log storage & search
-- **Axios** - HTTP requests
+- Node.js
+- Express.js
 
 ### 🤖 Machine Learning
-- **Python** - ML language
-- **FastAPI** - API framework
-- **Scikit-learn** - Anomaly detection (Isolation Forest)
-- **Pandas** - Data processing
+- Python (FastAPI)
+- Scikit-learn (Isolation Forest / anomaly detection)
 
 ### 📊 Log Management
-- **Elasticsearch** - Distributed search & analytics
-- **Logstash** - Log pipeline
-- **Filebeat** - Log shipper
-- **Kibana** - Optional visualization (alternative to our UI)
+- Elasticsearch
+- Logstash / Filebeat
+- Kibana (optional)
 
 ---
 
-## 🔄 Workflow Architecture
+## 🔄 Workflow
 
 ```
-Linux Logs → Logstash → Elasticsearch 
-    ↓
-Node.js Backend (Log aggregation & real-time streaming)
-    ↓
-Python ML Service (Anomaly detection & scoring)
-    ↓
-React Frontend (Visualization & Alerts)
+Linux Logs → Logstash → Elasticsearch → Node.js → Python ML → Node.js → React UI
 ```
 
 ---
 
 ## 🚀 Features
 
-✨ **Real-time Dashboard** - Live monitoring with auto-refresh
-🚨 **Alert Detection System** - Intelligent threat identification
-📜 **Log Monitoring & Filtering** - Advanced search and filtering
-🤖 **ML-based Anomaly Detection** - Isolation Forest algorithms
-📈 **Insights & Scoring** - Anomaly scores with detailed reasoning
-⚡ **Scalable Architecture** - Modular & extensible design
-🔄 **Real-time Updates** - WebSocket integration
-📊 **Analytics** - Historical trends and patterns
+- 📊 Real-time dashboard
+- 🚨 Alert detection system
+- 📜 Log monitoring & filtering
+- 🤖 ML-based anomaly detection
+- 📈 Insights with anomaly score & reasoning
+- ⚡ Scalable and modular architecture
+- 🔄 Real-time updates via WebSocket
+- 📊 Advanced analytics & insights
 
 ---
 
 ## 📁 Project Structure
 
 ```
-├── client/                    # React frontend (Vite)
-│   ├── src/                   # React components & pages
-│   ├── public/                # Static assets
-│   ├── index.html             # Entry point
-│   ├── vite.config.js         # Vite configuration
-│   ├── package.json           # Frontend dependencies
-│   └── .env                   # Environment variables
-│
-├── server/                    # Node.js Express backend
-│   ├── controllers/           # Business logic
-│   ├── routes/                # API routes
-│   ├── services/              # Service layer
-│   ├── config/                # Configuration
-│   ├── server.js              # Main server file
-│   ├── package.json           # Backend dependencies
-│   └── .env                   # Environment variables
-│
-├── ml-service/                # Python FastAPI service
-│   ├── main.py                # FastAPI app
-│   ├── models/                # ML models
-│   ├── requirements.txt       # Python dependencies
-│   └── .env                   # Environment variables
-│
-└── README.md                  # Project documentation
+├── client/        → React frontend (Vite)
+├── server/        → Node.js Express backend
+├── ml-service/    → Python FastAPI ML service
+└── README.md      → Documentation
 ```
 
 ---
 
-## 🛠️ Installation & Setup
+## 🛠️ Setup Instructions
 
 ### Prerequisites
 - **Node.js** >= 16.x
 - **Python** >= 3.8
 - **Docker** (optional, for Elasticsearch)
-- **Git**
 
-### 1️⃣ Clone Repository
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/Janhavi078/-alert-detection-system-for-linux-logs.git
 cd -alert-detection-system-for-linux-logs
 ```
 
-### 2️⃣ Setup Elasticsearch (Recommended using Docker)
+### 2. Setup Elasticsearch (via Docker - Recommended)
 
 ```bash
 docker run -d --name elasticsearch \
@@ -123,9 +87,7 @@ docker run -d --name elasticsearch \
   docker.elastic.co/elasticsearch/elasticsearch:8.5.0
 ```
 
-Or manually [download Elasticsearch](https://www.elastic.co/downloads/elasticsearch)
-
-### 3️⃣ Setup Frontend
+### 3. Install Frontend
 
 ```bash
 cd client
@@ -134,13 +96,7 @@ npm run dev
 # Frontend runs on http://localhost:5173
 ```
 
-Create `.env` file in `client/` directory:
-```env
-VITE_API_URL=http://localhost:5000
-VITE_SOCKET_URL=http://localhost:5000
-```
-
-### 4️⃣ Setup Backend
+### 4. Install Backend
 
 ```bash
 cd ../server
@@ -149,21 +105,7 @@ npm run dev
 # Backend runs on http://localhost:5000
 ```
 
-Create `.env` file in `server/` directory:
-```env
-PORT=5000
-NODE_ENV=development
-CLIENT_URL=http://localhost:5173
-
-# Elasticsearch Configuration
-ELASTICSEARCH_HOST=http://localhost:9200
-ELASTICSEARCH_INDEX=linux-logs
-
-# ML Service Configuration
-ML_SERVICE_URL=http://localhost:8000
-```
-
-### 5️⃣ Setup ML Service
+### 5. Run ML Service
 
 ```bash
 cd ../ml-service
@@ -172,21 +114,12 @@ uvicorn main:app --reload
 # ML Service runs on http://localhost:8000
 ```
 
-Create `.env` file in `ml-service/` directory:
-```env
-API_PORT=8000
-ML_MODEL=isolation-forest
-ANOMALY_THRESHOLD=0.7
-```
+### 🎯 Usage
 
----
-
-## 🎯 Usage
-
-1. **Start Elasticsearch**: Ensure it's running on `http://localhost:9200`
-2. **Start Backend**: `cd server && npm run dev`
-3. **Start Frontend**: `cd client && npm run dev` (in a new terminal)
-4. **Start ML Service**: `cd ml-service && uvicorn main:app --reload` (in a new terminal)
+1. **Start Elasticsearch**: `http://localhost:9200`
+2. **Start Backend**: `npm run dev` in `server/`
+3. **Start Frontend**: `npm run dev` in `client/`
+4. **Start ML Service**: `uvicorn main:app --reload` in `ml-service/`
 
 Access the application at: **http://localhost:5173**
 
@@ -195,7 +128,6 @@ Access the application at: **http://localhost:5173**
 ## 📋 API Endpoints
 
 ### Backend (Node.js)
-
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/health` | Server health check |
@@ -206,22 +138,11 @@ Access the application at: **http://localhost:5173**
 | GET | `/api/stats` | Get dashboard statistics |
 
 ### ML Service (Python)
-
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/predict` | Get anomaly prediction |
 | POST | `/batch-predict` | Process batch of logs |
 | GET | `/health` | ML service health |
-
----
-
-## 🔒 Security Features
-
-✅ CORS protection
-✅ Environment variable management (no hardcoded secrets)
-✅ Input validation
-✅ Rate limiting (ready to implement)
-✅ SSL/TLS support (ready to implement)
 
 ---
 
@@ -239,40 +160,75 @@ npm run preview   # Preview production build
 ```bash
 npm start         # Start production server
 npm run dev       # Start with nodemon (auto-reload)
-npm test          # Run tests (configure as needed)
+npm test          # Run tests
 ```
 
 ### ML Service
 ```bash
-uvicorn main:app --reload                    # Development
-uvicorn main:app --host 0.0.0.0 --port 8000 # Production
+uvicorn main:app --reload                          # Development
+uvicorn main:app --host 0.0.0.0 --port 8000       # Production
 ```
 
 ---
 
-## 🚀 Deployment
+## 🐳 Docker Deployment
 
-### Docker Deployment
+### Using Docker Compose (Recommended)
 
 ```bash
-# Build frontend image
-cd client && docker build -t alert-detection-client .
-
-# Build backend image
-cd server && docker build -t alert-detection-server .
-
-# Build ML service image
-cd ml-service && docker build -t alert-detection-ml .
-
-# Run all services with docker-compose
 docker-compose up -d
 ```
 
-### Cloud Platforms
-- **AWS**: Deploy with EC2, ECS, or Elastic Beanstalk
-- **Google Cloud**: Use App Engine or Cloud Run
-- **Azure**: Deploy to Azure App Service
-- **Heroku**: Simple deployment with buildpacks
+This will start:
+- Elasticsearch (port 9200)
+- Backend (port 5000)
+- ML Service (port 8000)
+
+### Individual Docker Build
+
+```bash
+# Build backend
+cd server && docker build -t alert-detection-server .
+
+# Build ML service
+cd ../ml-service && docker build -t alert-detection-ml .
+
+# Build frontend
+cd ../client && docker build -t alert-detection-client .
+```
+
+---
+
+## 📚 Documentation
+
+- [Frontend Setup](./client/README.md) - React components and configuration
+- [Backend Setup](./server/README.md) - API endpoints and architecture
+- [ML Service Guide](./ml-service/README.md) - Model training and predictions
+- [Contributing Guidelines](./CONTRIBUTING.md) - How to contribute
+- [Environment Templates](./.env.example) - Configuration reference
+
+---
+
+## 📌 Future Enhancements
+
+- 🔐 User authentication & role-based access control
+- 📡 Advanced WebSocket features for real-time collaboration
+- 📊 Advanced analytics dashboard with ML insights
+- ☁️ Cloud deployment templates (AWS, GCP, Azure)
+- 📱 Mobile application
+- 🎓 Interactive model training interface
+- 💾 Data persistence optimization
+- 🔔 Email/SMS notifications
+
+---
+
+## 🔒 Security Features
+
+- ✅ CORS protection
+- ✅ Environment variable management (no hardcoded secrets)
+- ✅ Input validation
+- ✅ Rate limiting (ready to implement)
+- ✅ SSL/TLS support (ready to implement)
 
 ---
 
@@ -280,31 +236,40 @@ docker-compose up -d
 
 ### Backend Tests
 ```bash
-cd server
-npm test
+cd server && npm test
 ```
 
 ### Frontend Tests
 ```bash
-cd client
-npm test
+cd client && npm test
 ```
 
 ### ML Service Tests
 ```bash
-cd ml-service
-pytest tests/
+cd ml-service && pytest tests/
 ```
 
 ---
 
-## 📚 Documentation
+## 🐛 Troubleshooting
 
-- [Frontend Setup Guide](./client/README.md)
-- [Backend Setup Guide](./server/README.md)
-- [ML Service Documentation](./ml-service/README.md)
-- [API Documentation](./API.md)
-- [Architecture Diagram](./ARCHITECTURE.md)
+| Issue | Solution |
+|-------|----------|
+| Backend can't connect to Elasticsearch | Ensure Elasticsearch is running on `http://localhost:9200` |
+| Frontend shows "Connection refused" | Verify backend is running and `VITE_API_URL` in `.env` is correct |
+| ML predictions return errors | Check Python dependencies: `pip install -r requirements.txt` |
+| Socket.io connection fails | Verify `CLIENT_URL` in backend `.env` matches frontend URL |
+
+---
+
+## 📈 Performance Tips
+
+- Use Elasticsearch aggregations for faster queries
+- Implement caching for frequently accessed data
+- Optimize ML model inference time
+- Enable gzip compression in production
+- Use CDN for static assets
+- Implement database indexing
 
 ---
 
@@ -318,51 +283,7 @@ Contributions are welcome! Please:
 4. Push to the branch: `git push origin feature/your-feature`
 5. Open a Pull Request
 
-### Guidelines
-- Follow the existing code style
-- Write descriptive commit messages
-- Update README if adding new features
-- Test your changes before submitting PR
-
----
-
-## 🐛 Troubleshooting
-
-### Issue: Backend can't connect to Elasticsearch
-**Solution**: Ensure Elasticsearch is running on the configured host and port
-
-### Issue: Frontend shows "Connection refused" error
-**Solution**: Verify backend is running and `VITE_API_URL` in `.env` is correct
-
-### Issue: ML predictions return errors
-**Solution**: Check Python dependencies are installed: `pip install -r requirements.txt`
-
-### Issue: Socket.io connection fails
-**Solution**: Verify `CLIENT_URL` in backend `.env` matches frontend URL
-
----
-
-## 📈 Performance Optimization Tips
-
-- Use Elasticsearch aggregations for faster queries
-- Implement caching for frequently accessed data
-- Optimize ML model inference time
-- Enable gzip compression in production
-- Use CDN for static assets
-- Implement database indexing
-
----
-
-## 🔄 Future Enhancements
-
-- 🔐 User authentication & role-based access control
-- 📡 Advanced WebSocket features for real-time collaboration
-- 📊 Advanced analytics dashboard with machine learning insights
-- ☁️ Cloud deployment templates
-- 📱 Mobile application
-- 🎓 Model training interface
-- 💾 Data persistence optimization
-- 🔔 Email/SMS notifications
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
@@ -378,8 +299,8 @@ This project and its source code are the intellectual property of the author. No
 
 For issues, questions, or suggestions:
 - Open an [Issue](https://github.com/Janhavi078/-alert-detection-system-for-linux-logs/issues)
+- Check existing [Documentation](./README.md)
 - Contact the author
-- Check existing documentation
 
 ---
 
@@ -387,10 +308,11 @@ For issues, questions, or suggestions:
 
 **Janhavi**
 
-- GitHub: [Janhavi078](https://github.com/Janhavi078)
-- Email: [Contact]
+- GitHub: [@Janhavi078](https://github.com/Janhavi078)
+- Project: [Alert Detection System](https://github.com/Janhavi078/-alert-detection-system-for-linux-logs)
 
 ---
 
 **Last Updated**: April 2026
 **Version**: 1.0.0
+**Status**: ✅ Active Development

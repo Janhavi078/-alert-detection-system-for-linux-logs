@@ -2,6 +2,7 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
+  "description": "React frontend for Alert Detection System - real-time log monitoring and anomaly visualization",
   "type": "module",
   "scripts": {
     "dev": "vite",

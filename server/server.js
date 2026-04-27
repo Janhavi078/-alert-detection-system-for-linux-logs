@@ -1,43 +1,41 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
 const http = require('http');
-const socketIo = require('socket.io');
+const app = require('./app');
+const { Server } = require('socket.io');
+const { connectDB } = require('./config/db');
+const dotenv = require('dotenv');
 
+// Load environment variables
 dotenv.config();
 
-const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
-    cors: {
-        origin: process.env.CLIENT_URL || "http://localhost:5173",
+
+// Real-Time Socket.io Initialization 
+const io = new Server(server, {
+    cors: { 
+        origin: process.env.CLIENT_URL || "*",
         methods: ["GET", "POST"]
     }
 });
 
-app.use(cors());
-app.use(express.json());
-
 // Socket.io connection handler
 io.on('connection', (socket) => {
-    console.log('New client connected:', socket.id);
-    
+    console.log('Client connected for real-time alerts:', socket.id);
     socket.on('disconnect', () => {
         console.log('Client disconnected:', socket.id);
     });
 });
 
-// Placeholder for Routes - Uncomment when ready
-// app.use('/api/logs', require('./routes/logRoutes'));
-// app.use('/api/alerts', require('./routes/alertRoutes'));
-
-// Health check endpoint
-app.get('/health', (req, res) => {
-    res.json({ status: 'Server is running', timestamp: new Date() });
-});
-
+// Database and Server Start
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📊 WebSocket server is ready for connections`);
+
+connectDB().then(() => {
+    server.listen(PORT, () => {
+        console.log(`🚀 Server running on port ${PORT}`);
+        console.log(`📊 WebSocket server is ready for connections`);
+    });
+}).catch(err => {
+    console.error("Failed to connect to DB, server not started", err);
 });
+
+// Exporting io for use in controllers/services
+module.exports = { io };

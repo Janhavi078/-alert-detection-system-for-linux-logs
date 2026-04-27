@@ -1,41 +1,34 @@
 const { esClient } = require('../config/db');
-const { analyzeLogsWithML } = require('../services/mlService');
 
-// @desc    Fetch all logs from Elasticsearch
-// @route   GET /api/logs [cite: 84]
-exports.getLogs = async (req, res) => {
+// @desc    Get all detected alerts/anomalies
+// @route   GET /api/alerts [cite: 89]
+exports.getAlerts = async (req, res) => {
     try {
+        // Fetch logs that were marked as anomalies (threshold/flag based)
         const { body } = await esClient.search({
-            index: 'linux-logs-*',
+            index: 'alerts-index', 
             body: {
-                query: { match_all: {} },
-                sort: [{ "@timestamp": "desc" }]
+                query: { term: { is_anomaly: true } }
             }
         });
         res.status(200).json(body.hits.hits.map(hit => hit._source));
     } catch (error) {
-        res.status(500).json({ message: "Error fetching logs", error: error.message });
+        res.status(500).json({ message: "Error fetching alerts", error: error.message });
     }
 };
 
-// @desc    Analyze logs using Python ML Service
-// @route   POST /api/analyze [cite: 86]
-exports.analyzeLogs = async (req, res) => {
+// @desc    Get dashboard summary statistics
+// @route   GET /api/stats [cite: 91]
+exports.getStats = async (req, res) => {
     try {
-        const { logs } = req.body; // Logs passed from frontend [cite: 97]
-        if (!logs || logs.length === 0) {
-            return res.status(400).json({ message: "No logs provided for analysis" });
-        }
-
-        // Call the ML Service bridge [cite: 87]
-        const analysisResults = await analyzeLogsWithML(logs);
-        
-        // Return detected anomalies to frontend [cite: 28, 74]
-        res.status(200).json({
-            status: "Success",
-            results: analysisResults
-        });
+        // Logic to count total logs vs anomalies for Dashboard [cite: 77, 90]
+        const stats = {
+            totalLogs: 1500, // Placeholder for actual ES aggregation
+            totalAlerts: 45,
+            systemStatus: "Healthy" [cite: 157]
+        };
+        res.status(200).json(stats);
     } catch (error) {
-        res.status(500).json({ message: "ML Analysis failed", error: error.message });
+        res.status(500).json({ message: "Error fetching stats" });
     }
 };

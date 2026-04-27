@@ -306,8 +306,6 @@ For issues, questions, or suggestions:
 
 ## 👨‍💻 Author
 
-**Janvi Dona** (Original Author: **Janhavi**)
-
 - Original GitHub: [@Janhavi078](https://github.com/Janhavi078)
 - Contributor: [Gauravmy](https://github.com/Gauravmy)
 - Project: [Alert Detection System](https://github.com/Janhavi078/-alert-detection-system-for-linux-logs)

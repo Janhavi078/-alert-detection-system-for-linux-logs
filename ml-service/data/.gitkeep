@@ -1,0 +1,5 @@
+# This directory stores trained ML models
+# .gitkeep ensures this directory is tracked by git even when empty
+
+# trained_model.pkl will be generated here on first run
+# See ../README.md for model initialization details
